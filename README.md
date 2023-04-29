@@ -1,2 +1,3 @@
 # WAGI
 
+repo sync test
