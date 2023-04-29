@@ -1,5 +1,9 @@
 # WAGI
 
+
+https://user-images.githubusercontent.com/43929136/235311140-554f0145-d0d8-4dd4-bae8-34a35cceb545.mp4
+
+
 WAGI is a hobby project focused on creating an AutoGPT web app.
 The project is in early development and is being worked on in leftover time, so I am sorry in advance for the code quality :)
 
