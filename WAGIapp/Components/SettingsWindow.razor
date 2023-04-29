@@ -1,0 +1,16 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudContainer Style="min-width: 700px;">
+            <MudTextField @bind-Value="Settings.OpenAIApiKey" Label="Open AI API key" Variant="Variant.Text" Disabled="!Master.Singleton.Done" />
+            <MudTextField @bind-Value="Settings.Rules" Lines="10" Label="Start text" Variant="Variant.Text" Disabled="!Master.Singleton.Done" />
+            <MudTextField @bind-Value="Settings.Goal" Lines="3" Label="Goal" Variant="Variant.Text" Disabled="!Master.Singleton.Done" />
+            <br />
+        </MudContainer>
+    </DialogContent>
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    void Close() => MudDialog.Close(DialogResult.Ok(true));
+}

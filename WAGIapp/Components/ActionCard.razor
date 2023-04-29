@@ -1,0 +1,22 @@
+﻿<MudCard Style="width: 500px;">
+    <MudStack Row>
+        @if (action.Last && !Master.Singleton.Done)
+        {
+            <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+        }
+        else
+        {
+            <MudIcon Icon="@action.Icon" Title="@action.Title" Size="Size.Large" />
+        }
+        <h1>@action.Title</h1>
+    </MudStack>
+    <p style="width: 500px;">
+        @action.Text
+    </p>
+</MudCard>
+
+@code {
+    [Parameter]
+    public LogAction action { get; set; }
+
+}

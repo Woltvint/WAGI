@@ -1,0 +1,31 @@
+﻿<MudIconButton Icon="@Icons.Material.Outlined.TextSnippet" OnClick="() => { showNotes = !showNotes; }" />
+@if (showNotes)
+{
+    <MudPaper Style="max-width: 300px; max-height: 500px; overflow-y: scroll;">
+        @foreach (var note in Master.Singleton.FormatedNotes.Split("\n"))
+        {
+            <p>@note</p>
+        }
+    </MudPaper>
+}
+
+@code {
+    private bool showNotes = true;
+}
+
+@code {
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        Task.Run(async () =>
+        {
+            while (true)
+            {
+                await Task.Delay(1000);
+                StateHasChanged();
+            }
+        });
+    }
+}

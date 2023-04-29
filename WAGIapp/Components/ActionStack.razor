@@ -1,0 +1,35 @@
+﻿@inject IJSRuntime JS
+
+<MudContainer Style="position: fixed; bottom: 0; right: 0; width: fit-content;" Class="actionStack">
+    @if (showStack)
+    {
+        <MudStack Style=" width: 500px; overflow-y: hidden; overflow-x: hidden; max-height: 700px;" id="actionStack" >
+            @foreach (var action in Master.Singleton.Actions.GetActions())
+            {
+                <ActionCard action="@action" />
+            }
+        </MudStack>
+    }
+    <MudIconButton Icon="@Icons.Material.Outlined.TextSnippet" OnClick="() => { showStack = !showStack; }" />
+</MudContainer>
+
+@code {
+    private bool showStack = true;
+}
+
+@code {
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        Task.Run(async () =>
+        {
+            while (true)
+            {
+                await Task.Delay(500);
+                StateHasChanged();
+            }
+        });
+    }
+}

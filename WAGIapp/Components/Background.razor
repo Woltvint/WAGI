@@ -1,0 +1,28 @@
+﻿@using WAGIapp.AI;
+@inject IJSRuntime JS
+
+<div id="graph" style="position: fixed; z-index: -1; width: 100%; height: 100%"></div>
+
+@code {
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+
+        //JS.InvokeVoidAsync("console.log", "hewo");
+        JS.InvokeVoidAsync("inicGraph");
+
+        Task.Run(async () =>
+        {
+            while (true)
+            {
+                await Task.Delay(1000);
+                JS.InvokeVoidAsync("resizeGraph");
+
+                if (Master.Singleton.Memory.MemoryChanged)
+                    JS.InvokeVoidAsync("setGraphData",Master.Singleton.Memory.GetGraphData());
+            }
+        });
+    }
+}

@@ -1,0 +1,10 @@
+﻿@inject IDialogService DialogService
+
+<MudIconButton Icon="@Icons.Material.Outlined.Settings" OnClick="OpenWindow" />
+
+@code {
+    private void OpenWindow()
+    {
+        DialogService.Show<SettingsWindow>("Settings Window", new DialogOptions() {CloseButton = true, MaxWidth = MaxWidth.Large});
+    }
+}

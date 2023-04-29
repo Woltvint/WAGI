@@ -1,0 +1,15 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudContainer Style="min-width: 500px">
+            <h1>Wrong API key</h1>
+            <p>Please make sure the OpenAI API key is set correctly in the settings</p>
+            <br />
+        </MudContainer>
+    </DialogContent>
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    void Close() => MudDialog.Close(DialogResult.Ok(true));
+}

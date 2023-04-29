@@ -1,0 +1,38 @@
+﻿@inject IDialogService DialogService
+
+<MudIconButton 
+    Icon="@(Master.Singleton.Done ? Icons.Material.Outlined.PlayArrow : Icons.Material.Outlined.Pause)"
+    OnClick="Click"
+    Title="@(Master.Singleton.Done ? "Start" : "Stop")" 
+/>
+
+@code {
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!Settings.OpenAIApiKey.StartsWith("sk-") && !Master.Singleton.Done)
+        {
+            DialogService.Show<KeyErrorDialog>("Error", new DialogOptions() { CloseButton = true });
+            Master.Singleton.Done = true;
+        }
+        
+        if (!firstRender)
+            return;
+
+        Task.Run(async () =>
+        {
+            while (true)
+            {
+                await Task.Delay(1000);
+                StateHasChanged();
+            }
+        });
+    }
+
+    private void Click()
+    {
+        if (Settings.OpenAIApiKey.StartsWith("sk-"))
+            Master.Singleton.Done = !Master.Singleton.Done;
+        else
+            DialogService.Show<KeyErrorDialog>("Error", new DialogOptions() { CloseButton = true });
+    }
+}

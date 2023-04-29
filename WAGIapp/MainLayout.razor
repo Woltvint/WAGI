@@ -1,0 +1,18 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider IsDarkMode="true" Theme="CustomTheme"/>
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+@Body
+
+@code {
+    MudTheme CustomTheme = new MudTheme()
+        {
+            PaletteDark = new PaletteDark()
+            {
+                Background = "#1a1b1e",
+                Surface = "#1a1b1e",
+            }
+        };
+}
