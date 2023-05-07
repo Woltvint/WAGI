@@ -35,6 +35,15 @@ A demo of this app is available [here](https://wagi.woltvint.net)
 
 to use it you just have to enter the OpenAI API key in the settings, edit the goal, and press the play button
 
+
+
+
+https://user-images.githubusercontent.com/43929136/236652342-f67cf8df-0da2-4626-942e-5fdb27627f66.mp4
+
+code writing (sped up)
+
+
+
 ## Contributing
 
 Any pull requests with fixes or upgrades are welcome, but please keep in mind that it can take a while until they are accepted.
