@@ -15,6 +15,7 @@ The project is in early development and is being worked on in leftover time, so 
 - chatGPT-powered long-term memory system (with a graph to display it)
 - limited web search using duckduckgo
 - stopping when a goal is reached
+- a code window the AI can write into
 
 ## Planned Features
 
