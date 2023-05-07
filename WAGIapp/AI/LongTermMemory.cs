@@ -23,8 +23,6 @@ namespace WAGIapp.AI
 
         public async Task MakeMemory(string state)
         {
-            Master.Singleton.Actions.AddAction("Creating a memory", LogAction.MemoryIcon);
-
             string tagString = "Tags:\n";
 
             foreach (var tag in tags)
@@ -60,8 +58,6 @@ namespace WAGIapp.AI
 
         public async Task<string> GetMemories(string input)
         {
-            Master.Singleton.Actions.AddAction("Remembering", LogAction.MemoryIcon);
-
             string memoryInput = "";
 
             memoryInput += "Available tags:\n";

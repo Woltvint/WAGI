@@ -23,10 +23,11 @@ namespace WAGIapp.AI
 
         public LongTermMemory Memory;
         public ActionList Actions;
+        public ScriptFile scriptFile;
 
         public bool Done = true;
 
-        private string nextPrompt = "";
+        private string nextMemoryPrompt = "";
         private string lastCommandOuput = "";
 
 
@@ -55,6 +56,7 @@ namespace WAGIapp.AI
 
             Memory = new LongTermMemory(1024);
             Actions = new ActionList(10);
+            scriptFile = new ScriptFile();
 
             singleton = this;
         }
@@ -95,17 +97,17 @@ namespace WAGIapp.AI
                 }
             }
 
-            nextPrompt = response.prompt;
+            nextMemoryPrompt = response.thoughts;
 
             lastCommandOuput = await Commands.TryToRun(this, response.command);
 
             LastMessages.Add(new ChatMessage(ChatRole.Assistant, responseString));
             LastCommand.Add(new ChatMessage(ChatRole.System, "Command output:\n" + lastCommandOuput));
 
-            if (LastMessages.Count >= 5)
+            if (LastMessages.Count >= 10)
                 LastMessages.RemoveAt(0);
 
-            if (LastCommand.Count >= 5)
+            if (LastCommand.Count >= 10)
                 LastCommand.RemoveAt(0);
 
             action.Text = response.thoughts;
@@ -114,7 +116,11 @@ namespace WAGIapp.AI
             masterInput.Add(LastCommand.Last());
 
             Console.WriteLine(JsonSerializer.Serialize(masterInput, new JsonSerializerOptions() { WriteIndented = true }));
+            Console.WriteLine(scriptFile.GetText());
             Console.WriteLine("------------------------------------------------------------------------");
+
+
+            Actions.AddAction("Memory", LogAction.MemoryIcon);
 
             await Memory.MakeMemory(responseString);
 
@@ -125,12 +131,14 @@ namespace WAGIapp.AI
             List<ChatMessage> messages = new List<ChatMessage>();
 
             messages.Add(Texts.MasterStartText);
-            messages.Add(new ChatMessage(ChatRole.System, "Memories:\n" + await Memory.GetMemories(nextPrompt)));
+            messages.Add(new ChatMessage(ChatRole.System, "Memories:\n" + await Memory.GetMemories(nextMemoryPrompt)));
             messages.Add(new ChatMessage(ChatRole.System, "Notes:\n" + FormatedNotes));
             messages.Add(new ChatMessage(ChatRole.System, "Commands:\n" + Commands.GetCommands()));
             messages.Add(new ChatMessage(ChatRole.System, "Main Goal:\n" + Settings.Goal));
+            messages.Add(new ChatMessage(ChatRole.System, "Script file:\n" + scriptFile.GetText() + "\nEnd of script file"));
             messages.Add(Texts.MasterStartText);
             messages.Add(Texts.MasterOutputFormat);
+            
 
             for (int i = 0; i < LastMessages.Count; i++)
             {
@@ -146,7 +154,6 @@ namespace WAGIapp.AI
     class MasterResponse
     {
         public string thoughts { get; set; } = "";
-        public string prompt { get; set; } = "";
         public string command { get; set; } = "";
     }
 }

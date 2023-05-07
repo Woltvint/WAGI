@@ -10,8 +10,7 @@
             "only reply in this json format" +
             "Output format:" +
             "{" +
-            "\"thoughts\": \"your inner dialog about what you plan to do\"" +
-            "\"prompt\": \"prompt for your future self so it can continue\"" +
+            "\"thoughts\": \"your thoughts\"" +
             "\"command\": \"command you want to execute in the format specified for that command\"" +
             "}" +
             "");

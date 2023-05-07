@@ -1,0 +1,10 @@
+﻿@inject IDialogService DialogService
+
+<MudIconButton Icon="@Icons.Material.Outlined.Code" OnClick="OpenWindow" />
+
+@code {
+    private void OpenWindow()
+    {
+        DialogService.Show<ScriptWindow>("Script Window", new DialogOptions() {CloseButton = true, MaxWidth = MaxWidth.ExtraLarge});
+    }
+}

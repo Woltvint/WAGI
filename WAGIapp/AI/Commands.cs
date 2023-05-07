@@ -21,6 +21,10 @@ namespace WAGIapp.AI
             commands.Add(c.Name, c);
             c = new SearchWebCommand();
             commands.Add(c.Name, c);
+            c = new RemoveLineCommand();
+            commands.Add(c.Name, c);
+            c = new WriteLineCommand();
+            commands.Add(c.Name, c);
 
         }
 
@@ -46,8 +50,9 @@ namespace WAGIapp.AI
             for (int i = 0; i < args.Length; i++)
             {
                 args[i] = args[i].Trim();
-                args[i] = args[i].ToLower();
             }
+
+            args[0] = args[0].ToLower();
 
             caller.Actions.AddAction("Running cmd: " + args[0], LogAction.CommandIcon);
 
